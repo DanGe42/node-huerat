@@ -1,3 +1,5 @@
+var passport = require('passport');
+
 var routes = {
     index: require('./routes/index').index,
     settings: require('./routes/settings').settings,
@@ -13,7 +15,7 @@ var ensureAuthenticated = function(req, res, next) {
     res.redirect('/login');
 };
 
-exports.route = function(app, passport) {
+exports.route = function(app, sequelize) {
     app.get('/', routes.index);
     app.get('/settings', ensureAuthenticated, routes.settings);
 
