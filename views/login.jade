@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  form.well.col-lg-4.col-md-6(role='form', method='POST', action='/login')
+    .form-group
+      label(for='username') Username
+      input.form-control(name='username', type='text', placeholder='Username')
+    .form-group
+      label(for='password') Password
+      input.form-control(name='password', type='password', placeholder='Password')
+    .checkbox
+      label(for='remember-me') Remember me (doesn't work yet!)
+      input#remember-me(type='checkbox')
+
+    input.btn.btn-default(type='submit') Submit

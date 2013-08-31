@@ -1,0 +1,40 @@
+doctype 5
+html(lang='en')
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/spectrum.css')
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/spectrum.js')
+    script(src='/javascripts/bootstrap.min.js')
+    block scripts
+  body
+    nav.navbar.navbar-inverse(role='navigation')
+      .container
+        .navbar-header
+          a.navbar-brand(href='/') Hue RAT
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li: a(href='/settings') Settings
+
+          ul.nav.navbar-nav.navbar-right
+            if !!user
+              li.navbar-text Logged in as #{user.username}
+              li: a(href='/logout') Logout
+            else
+              li: a(href='/login') Login
+
+    .container
+      h1= title
+
+      if !(messages === null || messages === undefined)
+        ul.messages
+          if Array.isArray(messages)
+            if messages.length > 0
+              - for (var i = 0; i < messages.length; i += 1)
+                li= messages[i]
+          else
+            li= messages
+
+      block content

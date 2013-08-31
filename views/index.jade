@@ -1,0 +1,23 @@
+extends layout
+block scripts
+  script(src='/javascripts/dashboard.js')
+
+block content
+  table.table.table-striped
+    thead
+      td Light
+      td
+      td Brightness
+      td Color
+    tr
+      td 1
+      td
+        button.btn.btn-danger(type='button', data-loading-text='Turning off...').
+          Turn off
+        button.btn.btn-success(type='button', data-loading-text='Turning on...').
+          Turn on
+      td
+        input(type='range', min=0, max=255, step=1)
+        span 255
+      td
+        input.color-picker(type='text')

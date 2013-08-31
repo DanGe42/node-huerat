@@ -1,0 +1,13 @@
+# IntelliJ files
+*.iml
+.idea/
+
+# Bower
+bower_components/
+
+# NPM files
+node_modules/
+
+# Database files
+*.rdb
+persist/
