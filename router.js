@@ -3,9 +3,7 @@ var passport = require('passport');
 var routes = {
     index: require('./routes/index').index,
     settings: require('./routes/settings').settings,
-    auth: {
-        login: require('./routes/auth').login_page
-    }
+    auth: require('./routes/auth')
 };
 
 var ensureAuthenticated = function(req, res, next) {
@@ -25,5 +23,6 @@ exports.route = function(app, sequelize) {
     }), function(req, res) {
         res.redirect('/');
     });
-    app.get('/login', routes.auth.login);
+    app.get('/login', routes.auth.login_page);
+    app.get('/logout', routes.auth.logout);
 };
