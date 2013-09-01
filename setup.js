@@ -7,14 +7,17 @@ This file is meant to be run as a standalone script and not as part of the appli
 Make sure you run this once before launching the main server application.
 */
 
-var prompt = require('prompt');
+var crypto = require('crypto');
+
 var bcrypt = require('bcrypt');
+var express = require('express');
+var prompt = require('prompt');
 var Sequelize = require('sequelize');
 
-
-var sequelize = new Sequelize('database', 'username', 'password', {
+var app = express();
+var sequelize = new Sequelize('database' + app.get('env'), 'username', 'password', {
     dialect: 'sqlite',
-    storage: 'persist/db.sqlite'
+    storage: 'persist/' + app.get('env') + '.sqlite'
 });
 var User = sequelize.import(__dirname + '/models/user');
 

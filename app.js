@@ -12,9 +12,9 @@ require('./app_config/express')(__dirname, app);
 
 var Sequelize = require('sequelize');
 // Since this is a personal web server not meant to scale, we use SQLite
-var sequelize = new Sequelize('database', 'username', 'password', {
+var sequelize = new Sequelize('database_' + app.get('env'), 'username', 'password', {
     dialect: 'sqlite',
-    storage: 'persist/db.sqlite'
+    storage: 'persist/' + app.get('env') + '.sqlite'
 });
 
 // Set up Passport for authentication
