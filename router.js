@@ -10,7 +10,10 @@ var ensureAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/login');
+
+    // WARN: Potential security vulnerability if req.originalUrl isn't escaped properly
+    var login_url = '/login?redirect=' + req.originalUrl;
+    res.redirect(login_url);
 };
 
 exports.route = function(app, sequelize) {
@@ -21,7 +24,8 @@ exports.route = function(app, sequelize) {
         failureRedirect: '/login',
         failureFlash: true
     }), function(req, res) {
-        res.redirect('/');
+        var redirect_url = req.query.redirect || '/';
+        res.redirect(redirect_url);
     });
     app.get('/login', routes.auth.login_page);
     app.get('/logout', routes.auth.logout);

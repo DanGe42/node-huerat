@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form.well.col-lg-4.col-md-6(role='form', method='POST', action='/login')
+  form.well.col-lg-4.col-md-6(role='form', method='POST', action=action_url)
     .form-group
       label(for='username') Username
       input.form-control(name='username', type='text', placeholder='Username')
