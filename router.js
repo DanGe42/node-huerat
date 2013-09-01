@@ -26,6 +26,7 @@ exports.route = function(app, sequelize) {
     app.get('/', routes.index);
     app.get('/settings', ensureAuthenticated,
         routes.settings.index.bind(null, models));
+    app.get('/settings/bridges', ensureAuthenticated, routes.settings.configBridges);
 
 
     /* Authentication */

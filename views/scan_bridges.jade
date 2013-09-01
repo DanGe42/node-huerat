@@ -1,0 +1,29 @@
+extends layout
+block scripts
+  script(src='/javascripts/scan_bridges.js')
+
+block header
+  .col-xs-1
+    a(href='/settings'): h1: span.glyphicon.glyphicon-circle-arrow-left
+  .col-xs-11
+    h1= title
+
+mixin messageModal(modalId, title, message)
+  .modal.fade(tabindex=-1, role='dialog', aria-hidden=true, id=modalId)
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden=true) &times;
+          h4.modal-title= title
+        .modal-body
+          p= message
+        .modal-footer
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+block content
+  #bridgeList
+    img(src='/images/ajax-loader.gif')
+
+
+  +messageModal('linkButtonModal', 'Failed to connect', 'Press the link button on the bridge and try again.')
+  +messageModal('internalErrorModal', 'Internal server error', 'Owww...')

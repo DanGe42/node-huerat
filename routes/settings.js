@@ -19,4 +19,11 @@ exports.index = function(models, req, res){
         });
 };
 
+/*
+ * GET /settings/bridges
+ *
+ * The bridge configuration page. Searches for bridges.
+ */
+exports.configBridges = function(req, res) {
+    res.render('scan_bridges', { title: 'Scan for bridges '});
 };
