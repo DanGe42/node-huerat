@@ -1,6 +1,8 @@
 
 /*
- * GET home page.
+ * GET /
+ *
+ * The dashboard page.
  */
 
 exports.index = function(req, res){

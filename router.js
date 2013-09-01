@@ -26,6 +26,8 @@ exports.route = function(app, sequelize) {
     app.get('/settings', ensureAuthenticated,
         routes.settings.index.bind(null, models));
 
+
+    /* Authentication */
     app.post('/login', passport.authenticate('local', {
         failureRedirect: '/login',
         failureFlash: true

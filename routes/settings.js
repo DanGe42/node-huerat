@@ -1,5 +1,7 @@
 /*
- * GET settings page
+ * GET /settings
+ *
+ * The settings page
  */
 exports.index = function(models, req, res){
     var Bridge = models.Bridge;

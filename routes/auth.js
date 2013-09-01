@@ -1,3 +1,8 @@
+/*
+ * GET /login
+ *
+ * The login page. Use POST /login for actual logging in.
+ */
 exports.login_page = function(req, res) {
     var redirect_url = req.query.redirect || '/';
     if (req.isAuthenticated()) {
@@ -12,6 +17,12 @@ exports.login_page = function(req, res) {
     });
 };
 
+/*
+ * GET /logout
+ *
+ * Logs the user out.
+ * TODO: CSRF protection.
+ */
 exports.logout = function(req, res) {
     req.logout();
     res.redirect('/');
