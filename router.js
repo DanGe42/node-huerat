@@ -18,14 +18,17 @@ var ensureAuthenticated = function(req, res, next) {
 };
 
 exports.route = function(app, sequelize) {
-    var models = {
-        User: sequelize.import(__dirname + '/models/user'),
-        Bridge: sequelize.import(__dirname + '/models/bridge')
+    var m = function(route) {
+        var models = {
+            User: sequelize.import(__dirname + '/models/user'),
+            Bridge: sequelize.import(__dirname + '/models/bridge')
+        };
+
+        return route.bind(null, models);
     };
 
     app.get('/', routes.index);
-    app.get('/settings', ensureAuthenticated,
-        routes.settings.index.bind(null, models));
+    app.get('/settings', ensureAuthenticated, m(routes.settings.index));
     app.get('/settings/bridges', ensureAuthenticated, routes.settings.configBridges);
 
 
@@ -44,5 +47,5 @@ exports.route = function(app, sequelize) {
     /* Hue API */
     app.get('/hue/bridges', ensureAuthenticated, routes.hue.findBridges);
     app.post('/hue/bridge/:hostname/connect', ensureAuthenticated,
-        routes.hue.connectBridge.bind(null, models));
+        m(routes.hue.connectBridge));
 };
