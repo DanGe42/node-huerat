@@ -5,7 +5,7 @@
  */
 exports.index = function(models, req, res){
     var Bridge = models.Bridge;
-    Bridge.find({ where: { user_id: req.user.id } })
+    Bridge.find({ limit: 1 })
         .success(function(bridge) {
             if (bridge) {
                 res.render('settings', {
@@ -16,6 +16,10 @@ exports.index = function(models, req, res){
             } else {
                 res.render('settings', { title: 'Settings' });
             }
+        })
+        .failure(function(err) {
+            console.error(err);
+            res.send(500);
         });
 };
 

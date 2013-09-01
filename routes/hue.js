@@ -42,7 +42,7 @@ exports.connectBridge = function(models, req, res) {
                     res.json(500, { message: 'Internal server error '});
                 };
 
-                Bridge.find({ where: { user_id: user.id } })
+                Bridge.find({ limit: 1})
                     .then(function(bridge) {
                         if (bridge) {
                             console.info('Removing old bridge.');
@@ -52,8 +52,7 @@ exports.connectBridge = function(models, req, res) {
                     }, handleErrors)
                     .then(function() {
                         return Bridge.create({
-                            hostname: hostname,
-                            user_id: user.id
+                            hostname: hostname
                         });
                     }, handleErrors)
                     .then(function(bridge) {
