@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h2 Bridge configuration
+
+  if hostname
+    table.table
+      tr
+        td Hostname
+        td= hostname
+      tr
+        td Username
+        td= username
+
+  a.btn.btn-primary(href="/settings/bridges") Scan for bridges

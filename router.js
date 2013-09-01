@@ -2,7 +2,7 @@ var passport = require('passport');
 
 var routes = {
     index: require('./routes/index').index,
-    settings: require('./routes/settings').settings,
+    settings: require('./routes/settings'),
     auth: require('./routes/auth')
 };
 
@@ -23,7 +23,8 @@ exports.route = function(app, sequelize) {
     };
 
     app.get('/', routes.index);
-    app.get('/settings', ensureAuthenticated, routes.settings);
+    app.get('/settings', ensureAuthenticated,
+        routes.settings.index.bind(null, models));
 
     app.post('/login', passport.authenticate('local', {
         failureRedirect: '/login',

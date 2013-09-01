@@ -1,10 +1,20 @@
 /*
  * GET settings page
  */
+exports.index = function(models, req, res){
+    var Bridge = models.Bridge;
+    Bridge.find({ where: { user_id: req.user.id } })
+        .success(function(bridge) {
+            if (bridge) {
+                res.render('settings', {
+                    title: 'Settings',
+                    hostname: bridge.hostname,
+                    username: req.user.hue_user
+                });
+            } else {
+                res.render('settings', { title: 'Settings' });
+            }
+        });
+};
 
-exports.settings = function(req, res){
-    var authenticated = true;
-    if (authenticated) {
-        res.render('index', { title: 'Dashboard' });
-    }
 };
