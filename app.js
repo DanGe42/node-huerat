@@ -8,7 +8,7 @@ var http = require('http');
 var routes = require('./router');
 
 var app = express();
-require('./config/express')(__dirname, app);
+require('./app_config/express')(__dirname, app);
 
 var Sequelize = require('sequelize');
 // Since this is a personal web server not meant to scale, we use SQLite
@@ -18,7 +18,7 @@ var sequelize = new Sequelize('database', 'username', 'password', {
 });
 
 // Set up Passport for authentication
-require('./config/passport')(__dirname, sequelize);
+require('./app_config/passport')(__dirname, sequelize);
 
 // Set up routes
 routes.route(app, sequelize);
