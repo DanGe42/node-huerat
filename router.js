@@ -18,7 +18,8 @@ var ensureAuthenticated = function(req, res, next) {
 
 exports.route = function(app, sequelize) {
     var models = {
-        User: sequelize.import(__dirname + '/models/user')
+        User: sequelize.import(__dirname + '/models/user'),
+        Bridge: sequelize.import(__dirname + '/models/bridge')
     };
 
     app.get('/', routes.index);
