@@ -8,6 +8,11 @@ module.exports = function(sequelize, DataTypes) {
         password_hash: {
             type: DataTypes.STRING(60),
             allowNull: false
+        },
+        hue_user: {
+            type: DataTypes.STRING(40),
+            allowNull: false,
+            unique: true
         }
     });
 };

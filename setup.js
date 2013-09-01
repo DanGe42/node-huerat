@@ -46,7 +46,7 @@ function promptToCreateUser() {
         var username = result.username;
 
         User.find({ where: {username: username} })
-            .done(function(err, user) {
+            .success(function(user) {
                 if (user) {
                     console.warn("A user of that name already exists. If you continue, " +
                                  "the user will be updated with a new password.");
@@ -61,21 +61,41 @@ function promptToCreateUser() {
                     if (err) {
                         throw err;
                     }
-                    createUser(username, result.password);
+                    createUser(username, result.password, user);
                 });
             });
     });
 }
 
-function createUser(username, password) {
+function createUser(username, password, user) {
     console.log("Hashing password with bcrypt...");
     var hash = bcrypt.hashSync(password, 11);
-    User.create({
-        username: username,
-        password_hash: hash
-    }).success(function(user) {
-        console.log("Success!");
-    }).failure(function(err) {
-        console.error(err);
-    });
+
+    // Create a Hue user name
+    var shasum = crypto.createHash('sha1');
+    shasum.update(username, 'utf8');
+    var buf = crypto.randomBytes(64);
+    shasum.update(buf);
+    var hue_user = shasum.digest('hex');
+
+    if (user) {
+        user.password_hash = hash;
+        user.save()
+            .success(function() {
+                console.log('Success!');
+            })
+            .failure(function(err) {
+                console.error(err);
+            });
+    } else {
+        User.create({
+            username: username,
+            password_hash: hash,
+            hue_user: hue_user
+        }).success(function(user) {
+            console.log("Success!");
+        }).failure(function(err) {
+            console.error(err);
+        });
+    }
 }
