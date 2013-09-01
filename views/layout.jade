@@ -26,7 +26,8 @@ html(lang='en')
               li: a(href='/login') Login
 
     .container
-      h1= title
+      block header
+        h1= title
 
       if !(messages === null || messages === undefined)
         ul.messages
